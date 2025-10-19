@@ -1,4 +1,3 @@
-
 (function(){
   function money(n){ return (Math.round((n + Number.EPSILON) * 100) / 100).toFixed(2); }
   function itemsMap(){ var m={}; (window.SITE_CONFIG.items||[]).forEach(i=>m[i.key]=i); return m; }
@@ -72,9 +71,10 @@
     var prev = btn.textContent; btn.textContent = 'Sending...'; btn.disabled = true;
 
     try{
+      // CHANGED: use text/plain to avoid CORS preflight
       var res = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
         body: JSON.stringify(payload)
       });
       var j = await res.json().catch(()=>({ok:false, error:'Invalid JSON'}));
