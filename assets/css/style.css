@@ -1,0 +1,50 @@
+
+:root{--bg:#fff8f6;--panel:#ffffff;--ink:#1e1e1e;--muted:#5b5b5b;--brand:#9a1a12;--brand-2:#f1c22e;--border:#eee;--radius:18px;--shadow:0 12px 32px rgba(10,10,10,.08)}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--ink);background:var(--bg)}
+a{color:var(--brand);text-decoration:none}
+img{max-width:100%;display:block}
+.container{width:min(1100px,92%);margin:0 auto}
+header{position:sticky;top:0;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);z-index:40}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
+.brand .logo{width:36px;height:36px;border-radius:12px;box-shadow:var(--shadow)}
+.navlinks{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.navlinks a{padding:8px 12px;border-radius:999px;font-weight:600;color:#333}
+.navlinks a.active{background:rgba(154,26,18,.1)}
+.lang{display:flex;gap:6px;align-items:center}
+.lang button{border:1px solid #ddd;background:#fff;padding:6px 10px;border-radius:999px;cursor:pointer;font-weight:700}
+.lang button.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:26px;align-items:center;padding:26px 0 10px}
+.hero .panel{background:linear-gradient(135deg,#ffffff 0%,#fff1ed 85%);border:1px solid #f1e6e3;border-radius:var(--radius);padding:26px;box-shadow:var(--shadow)}
+h1{font-size:clamp(32px,4.8vw,56px);line-height:1.05;margin:0 0 10px}
+.kicker{font-size:.9rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:#a16a62;margin-bottom:8px}
+.tagline{font-size:clamp(15px,2vw,18px);color:var(--muted);margin:10px 0 18px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin: 10px 0 16px}
+.chip{background:#fff;border:1px dashed #e8d5d3;padding:8px 12px;border-radius:999px;font-weight:700;color:#7b4d48}
+.cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.cta .btn{display:inline-flex;align-items:center;gap:10px;background:var(--brand);color:white;padding:12px 16px;border-radius:14px;font-weight:800;box-shadow:var(--shadow)}
+.section{padding:28px 0}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+.card h3{margin:8px 0}
+.price{font-weight:900;color:var(--brand)}
+.muted{color:var(--muted)}
+.food-img{width:100%;aspect-ratio:16/9;height:auto;object-fit:cover;border-radius:12px;border:1px solid #f1e6e3;margin-bottom:10px}
+.notice{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-top:10px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.stack{display:flex;flex-direction:column;gap:8px}
+footer{border-top:1px solid var(--border);padding:22px 0 48px;color:var(--muted);margin-top:26px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px dashed #e8d5d3;border-radius:999px;background:#fff;color:#7b4d48;font-weight:700}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.actions .btn{border:1px solid var(--border);border-radius:12px;background:#fff;padding:10px 14px;cursor:pointer;font-weight:800}
+.actions .btn.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+.order-count{background:var(--brand);color:#fff;border-radius:999px;padding:2px 8px;font-size:.8rem;font-weight:800;margin-left:6px}
+.table-wrap{background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+table.table{width:100%;border-collapse:collapse}
+table.table th, table.table td{padding:12px 10px;border-bottom:1px solid #f1f1f1;text-align:left}
+table.table th{background:#fff7f5;font-weight:800}
+table.table tfoot td{font-weight:900}
+@media (max-width: 1000px){.cards{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:1fr}.hero{grid-template-columns:1fr}}
+@media (max-width: 640px){.cards{grid-template-columns:1fr}}
