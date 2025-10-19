@@ -1,36 +1,38 @@
 /** Apps Script backend for The Weekend Bite orders -> Google Sheets **/
-const SHEET_ID   = '1OmzrhMf4LRhXHsWHMjgvMnFQNvuXYMuU8lhXA5_IQvM';
-const SHEET_NAME = 'Orders';
-const NOTIFY_EMAIL = 'thewkndbitetorino@gmail.com'; // change to your business Gmail
+const SHEET_ID     = '13iM3dEuCnodgjFRoQcSGfBEDFmepRjoJRBRpQR7tmLk'; // your sheet
+const SHEET_NAME   = 'Orders';                                         // tab name
+const NOTIFY_EMAIL = 'ibrahimnasser339@gmail.com';                     // your Gmail
 const TZ = 'Europe/Rome';
 
-function doOptions(e) {
-  return ContentService.createTextOutput('')
-    .setMimeType(ContentService.MimeType.TEXT)
-    .setHeader('Access-Control-Allow-Origin','*')
-    .setHeader('Access-Control-Allow-Methods','POST, OPTIONS')
-    .setHeader('Access-Control-Allow-Headers','Content-Type');
+/** Simple GET so you can open the /exec URL in a browser to test */
+function doGet(e) {
+  return ContentService
+    .createTextOutput(JSON.stringify({ ok: true, ping: 'TheWeekendBite', time: new Date() }))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
+/** Receive orders from the website (POST) */
 function doPost(e) {
   try {
-    const data = JSON.parse(e.postData.contents || '{}');
-    // honeypot protection
+    const raw  = (e && e.postData) ? e.postData.contents : '{}';   // we post text/plain from the site
+    const data = JSON.parse(raw || '{}');
+
+    // Honeypot anti-spam: hidden field must be empty
     if (data.hp && String(data.hp).trim() !== '') {
-      return _json({ ok:false, error:'spam' }, 400);
+      return json({ ok:false, error:'spam' }, 400);
     }
 
-    const ss = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
-    if (!ss) throw new Error('Missing sheet "'+SHEET_NAME+'"');
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
+    if (!sheet) throw new Error('Missing sheet "' + SHEET_NAME + '"');
 
     const ts = new Date();
     const id = 'WB-' + Utilities.formatDate(ts, TZ, 'yyyyMMdd-HHmmss') + '-' +
                Math.floor(Math.random()*1000).toString().padStart(3,'0');
 
     const items = Array.isArray(data.items) ? data.items : [];
-    const total = items.reduce((s, it) => s + (Number(it.price)||0)*(Number(it.qty)||0), 0);
+    const total = items.reduce((s, it) => s + (Number(it.price)||0) * (Number(it.qty)||0), 0);
 
-    ss.appendRow([
+    sheet.appendRow([
       Utilities.formatDate(ts, TZ, 'yyyy-MM-dd HH:mm:ss'),
       id,
       data.name || '',
@@ -43,7 +45,7 @@ function doPost(e) {
       data.ua || ''
     ]);
 
-    // Email notification
+    // Email summary
     const summary = items.map(it => `- ${it.name} — ${it.qty} kg @ €${it.price}/kg`).join('\n');
     MailApp.sendEmail({
       to: NOTIFY_EMAIL,
@@ -59,16 +61,15 @@ function doPost(e) {
       `
     });
 
-    return _json({ ok: true, id }, 200);
+    return json({ ok:true, id }, 200);
   } catch (err) {
-    return _json({ ok:false, error: String(err) }, 400);
+    return json({ ok:false, error:String(err) }, 400);
   }
 }
 
-function _json(obj, code) {
-  return ContentService.createTextOutput(JSON.stringify(obj))
-    .setMimeType(ContentService.MimeType.JSON)
-    .setHeader('Access-Control-Allow-Origin','*')
-    .setHeader('Access-Control-Allow-Headers','Content-Type')
-    .setHeader('Access-Control-Allow-Methods','POST, OPTIONS');
+/** Minimal JSON response helper */
+function json(obj, code) {
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
 }
