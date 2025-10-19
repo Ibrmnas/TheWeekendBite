@@ -35,65 +35,67 @@
       </nav>
     </div>
   </header>
+
   <main class="container">
+    <section class="section">
+      <h1 data-i18n="order.grid.title">Order</h1>
+      <p class="muted" data-i18n="order.grid.desc">Add items (kg) and submit. We’ll receive it in our system.</p>
 
-  <section class="section">
-    <h1 data-i18n="order.grid.title">Order</h1>
-    <p class="muted" data-i18n="order.grid.desc">Add items (kg) and submit. We’ll receive it in our system.</p>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th data-i18n="order.item">Item</th>
+              <th data-i18n="order.price">Price €/kg</th>
+              <th data-i18n="order.qty">Qty (kg)</th>
+              <th data-i18n="order.notes">Notes</th>
+              <th data-i18n="order.total">Line total €</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4" style="text-align:right;"><strong data-i18n="order.grand">Grand Total €</strong></td>
+              <td><strong id="grand">0.00</strong></td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
 
-    <div class="table-wrap">
-      <table class="table">
-        <thead>
-          <tr>
-            <th data-i18n="order.item">Item</th>
-            <th data-i18n="order.price">Price €/kg</th>
-            <th data-i18n="order.qty">Qty (kg)</th>
-            <th data-i18n="order.notes">Notes</th>
-            <th data-i18n="order.total">Line total €</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="rows"></tbody>
-        <tfoot>
-          <tr>
-            <td colspan="4" style="text-align:right;"><strong data-i18n="order.grand">Grand Total €</strong></td>
-            <td><strong id="grand">0.00</strong></td>
-            <td></td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
+      <h2 style="margin-top:24px">Customer details</h2>
+      <div class="grid-3">
+        <div class="card"><label>Name <input id="c-name" required placeholder="Your name"></label></div>
+        <div class="card"><label>Phone <input id="c-phone" required placeholder="+39 ..."></label></div>
+        <div class="card"><label>Address <input id="c-addr" required placeholder="Street, number, area"></label></div>
+      </div>
+      <div class="card" style="margin-top:10px;">
+        <label>Notes (optional) <input id="c-notes" placeholder="Gate code, preferred time, etc."></label>
+        <input id="hp-field" name="website" type="text" style="display:none" autocomplete="off">
+      </div>
 
-    <h2 style="margin-top:24px">Customer details</h2>
-    <div class="grid-3">
-      <div class="card"><label>Name <input id="c-name" required placeholder="Your name"></label></div>
-      <div class="card"><label>Phone <input id="c-phone" required placeholder="+39 ..."></label></div>
-      <div class="card"><label>Address <input id="c-addr" required placeholder="Street, number, area"></label></div>
-    </div>
-    <div class="card" style="margin-top:10px;">
-      <label>Notes (optional) <input id="c-notes" placeholder="Gate code, preferred time, etc."></label>
-      <input id="hp-field" name="website" type="text" style="display:none" autocomplete="off">
-    </div>
-
-    <div class="actions">
-      <button id="add" class="btn primary" data-i18n="order.add">Add row</button>
-      <button id="clear" class="btn" data-i18n="order.clear">Clear</button>
-      <button id="csv" class="btn" data-i18n="order.export">Export CSV</button>
-      <button id="place-order" class="btn primary" data-i18n="order.sendwa">Place Order</button>
-    </div>
-  </section>
-  <script src="assets/js/order.js"></script>
-
+      <div class="actions">
+        <button id="add" class="btn primary" data-i18n="order.add">Add row</button>
+        <button id="clear" class="btn" data-i18n="order.clear">Clear</button>
+        <button id="csv" class="btn" data-i18n="order.export">Export CSV</button>
+        <button id="place-order" class="btn primary" data-i18n="order.sendwa">Place Order</button>
+      </div>
+    </section>
   </main>
+
   <footer>
     <div class="container">
       <div class="muted">© 2025 The Weekend Bite. <span>All rights reserved.</span></div>
       <div class="muted" style="margin-top:6px;">Please follow local food safety rules. Labels include ingredients & allergens.</div>
     </div>
   </footer>
-  <script src="assets/js/config.js"></script>
-  <script src="assets/js/i18n.js"></script>
-  <script src="assets/js/site.js"></script>
-  <script src="assets/js/backend.js"></script>
+
+  <!-- Load globals first, then backend, then order logic (with cache-busting) -->
+  <script src="assets/js/config.js?v=8"></script>
+  <script src="assets/js/i18n.js?v=8"></script>
+  <script src="assets/js/site.js?v=8"></script>
+  <script src="assets/js/backend.js?v=8"></script>
+  <script src="assets/js/order.js?v=8"></script>
 </body>
 </html>
