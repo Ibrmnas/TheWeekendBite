@@ -86,6 +86,7 @@
       phone:   document.getElementById('c-phone').value.trim(),
       address: document.getElementById('c-addr').value.trim(),
       notes:   document.getElementById('c-notes').value.trim(),
+      allergies: (document.getElementById('c-allergies').value || '').trim(),
       items,
       lang: document.documentElement.lang || 'en',
       ua: navigator.userAgent,
